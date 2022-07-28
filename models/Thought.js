@@ -8,12 +8,13 @@ const ReactionSchema = new Schema(
             default: () => new Types.ObjectId
         },
         reactionBody: {
-            type: String
-            // required, 280 character max
+            type: String,
+            required: true,
+            maxLength: 280
         },
         username: {
-            type: String
-            // required
+            type: String,
+            required: true
         },
         createdAt: {
             type: Date,
@@ -31,8 +32,10 @@ const ReactionSchema = new Schema(
 const ThoughtSchema = new Schema(
     {
         thoughtText: {
-            type: String
-            // required, must be between 1-280 characters
+            type: String,
+            required: true,
+            minLength: 1,
+            maxLength: 280
         },
         createdAt: {
             type: Date,
@@ -40,10 +43,9 @@ const ThoughtSchema = new Schema(
             get: createdAtVal => dateFormat(createdAtVal)
         },
         username: {
-            type: String
-            // required
+            type: String,
+            required: true
         },
-        // array of nested documents created with the reactionSchema
         reactions: [ReactionSchema]
     },
     {
